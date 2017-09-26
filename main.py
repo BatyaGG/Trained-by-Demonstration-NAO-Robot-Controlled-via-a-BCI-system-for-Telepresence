@@ -1,28 +1,11 @@
-from naoqi import ALProxy
-from time import sleep, time
+from time import sleep
 import bufhelp
 import FieldTrip
-
-hostname='localhost'
-port=1972
-
+from NAO import NAO
+# Configuring NAO robot IP and its port and initializing NAO object
 robotIP = "192.168.10.101"
-motionProxy = ALProxy("ALMotion", robotIP, 9559)
-
-def moveForward(distance):
-    motionProxy.setWalkTargetVelocity(1, 0, 0, 0)
-    sleep(4.5)
-    motionProxy.setWalkTargetVelocity(0, 0, 0, 0)
-
-def turnLeft(angle):
-    motionProxy.setWalkTargetVelocity(0, 0, 0.5, 0)
-    sleep(angle/15)
-    motionProxy.setWalkTargetVelocity(0, 0, 0, 0)
-
-def turnRight(angle):
-    motionProxy.setWalkTargetVelocity(0, 0, -0.5, 0)
-    sleep(angle/15)
-    motionProxy.setWalkTargetVelocity(0, 0, 0, 0)
+robotPort = 9559
+Nao = NAO(robotIP, robotPort)
 
 # Buffer interfacing functions
 def sendEvent(event_type, event_value=1, offset=0):
@@ -34,6 +17,8 @@ def sendEvent(event_type, event_value=1, offset=0):
         e.sample = sample + offset + 1
     ftc.putEvents(e)
 
+hostname='localhost'
+port=1972
 (ftc,hdr) = bufhelp.connect(hostname,port)
 # Wait until the buffer connects correctly and returns a valid header
 
@@ -45,7 +30,6 @@ while hdr is None:
         hdr = ftc.getHeader()
     except IOError:
         pass
-
     if hdr is None:
         print('Invalid Header... waiting')
         sleep(1)
@@ -54,18 +38,16 @@ while hdr is None:
         print((hdr.labels))
 
 def processBufferEvents():
-    global running
     events = bufhelp.buffer_newevents()
-
     for evt in events:
         print(str(evt.sample) + ": " + str(evt))
         if evt.type == 'keyboard':
             if evt.value == 'q':
-                moveForward(150)
+                Nao.moveForward(150)
             elif evt.value == 'w':
-                turnLeft(90)
+                Nao.turnLeft(90)
             elif evt.value == 'e':
-                turnRight(90)
+                Nao.turnRight(90)
             elif evt.value == '0':
                 print 'task'
 
