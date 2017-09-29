@@ -2,7 +2,11 @@ from naoqi import ALProxy
 import time
 import numpy as np
 import thread
+from DTW import DTW
+from GMM_GMR import GMM_GMR
+from matplotlib import pyplot as plt
 class NAO:
+
     def __init__(self, robotIP, robotPort):
         self.motionProxy = ALProxy("ALMotion", robotIP, robotPort)
         self.numberOfStates = 5
@@ -43,7 +47,7 @@ class NAO:
                 dataLeft = np.hstack((dataLeft, resultLeft))
                 dataRight = np.hstack((dataRight, resultRight))
                 elapsed = time.time() - startTime
-                timeArray = np.hstack((timeArray, np.array([[elapsed]])))
+                timeArray = np.hstack((timeArray, np.array([[timeArray[0, -1] + elapsed]])))
             timeArray = timeArray[:,:(timeArray.size - 1)]
             self.stopperBool = True
             return np.vstack((timeArray, dataLeft)), np.vstack((timeArray, dataRight))
@@ -65,8 +69,26 @@ class NAO:
                 break
             else:
                 print 'Incorrect input given.'
-
-        
+        inputMat = DataLeft[0][0, :]
+        DataLeft = DTW(DataLeft)
+        DataRight = DTW(DataRight)
+        leftGMR = GMM_GMR(5)
+        rightGMR = GMM_GMR(5)
+        leftGMR.fit(DataLeft)
+        rightGMR.fit(DataRight)
+        leftGMR.predict(inputMat)
+        rightGMR.predict(inputMat)
+        return leftGMR.getPredictedMatrix(), rightGMR.getPredictedMatrix()
+        # fig = plt.figure()
+        # ax1 = fig.add_subplot(121)
+        # plt.title('Left Hand x-axis trajectory')
+        # leftGMR.plot(ax=ax1, plotType="Clusters")
+        # leftGMR.plot(ax=ax1, plotType="Regression")
+        # ax2 = fig.add_subplot(122)
+        # plt.title('Right Hand x-axis trajectory')
+        # rightGMR.plot(ax=ax2, plotType="Clusters")
+        # rightGMR.plot(ax=ax2, plotType="Regression")
+        # plt.show()
 
 if __name__ == '__main__':
     NAO = NAO('192.168.10.101', 9559)

@@ -49,4 +49,6 @@ def EM(Data, Priors0, Mu0, Sigma0):
             break
         loglik_old = loglik
         nbStep = nbStep+1
+        if (nbStep > 50):
+            break
     return(Priors,Mu,Sigma, Pix)
