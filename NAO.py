@@ -44,7 +44,22 @@ class NAO:
         self.motionProxy.setWalkTargetVelocity(0, 0, 0, 0)
 
     def performTask(self, index):
-        
+
+        effector = ['LArm', 'RArm']
+        space = 0
+        axisMask = [63, 63]
+        isAbsolute = True
+        currentTask = self.trainedTasks[index]
+        pathList = [currentTask[0][1:, :].T.tolist(), currentTask[1][1:, :].T.tolist()]
+        # y = np.delete(rrrr.Data, 0, axis=0)
+        # y = np.transpose(y)
+        # y = y.tolist()
+        timeList = [currentTask[0][0, :].tolist(), currentTask[1][0, :].tolist()]
+        print timeList
+        # t = np.delete(rrrr.Data, np.s_[1:7], axis=0)
+        # t = np.dot(t, 3)
+        # t = t.tolist()
+        self.motionProxy.positionInterpolations(effector, space, pathList, axisMask, timeList, isAbsolute)
 
     def trainTask(self):
 
@@ -119,3 +134,4 @@ class NAO:
 if __name__ == '__main__':
     NAO = NAO('192.168.10.101', 9559)
     NAO.trainTask()
+    NAO.performTask(0)
