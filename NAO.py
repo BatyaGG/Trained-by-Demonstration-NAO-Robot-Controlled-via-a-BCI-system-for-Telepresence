@@ -10,11 +10,27 @@ class NAO:
     def __init__(self, robotIP, robotPort):
         self.motionProxy = ALProxy("ALMotion", robotIP, robotPort)
         self.numberOfStates = 5
+        self.trainedTasks = []
         self.stopperBool = True
 
     def moveForward(self, distance):
         self.motionProxy.setWalkTargetVelocity(1, 0, 0, 0)
-        time.sleep(4.5)
+        time.sleep(distance / 10)
+        self.motionProxy.setWalkTargetVelocity(0, 0, 0, 0)
+
+    def moveBackward(self, distance):
+        self.motionProxy.setWalkTargetVelocity(-1, 0, 0, 0)
+        time.sleep(distance / 10)
+        self.motionProxy.setWalkTargetVelocity(0, 0, 0, 0)
+
+    def moveLeft(self, distance):
+        self.motionProxy.setWalkTargetVelocity(0, 1, 0, 0)
+        time.sleep(distance / 10)
+        self.motionProxy.setWalkTargetVelocity(0, 0, 0, 0)
+
+    def moveRight(self, distance):
+        self.motionProxy.setWalkTargetVelocity(0, -1, 0, 0)
+        time.sleep(distance / 10)
         self.motionProxy.setWalkTargetVelocity(0, 0, 0, 0)
 
     def turnLeft(self, angle):
@@ -26,6 +42,9 @@ class NAO:
         self.motionProxy.setWalkTargetVelocity(0, 0, -0.5, 0)
         time.sleep(angle / 15)
         self.motionProxy.setWalkTargetVelocity(0, 0, 0, 0)
+
+    def performTask(self, index):
+        
 
     def trainTask(self):
 
@@ -69,16 +88,23 @@ class NAO:
                 break
             else:
                 print 'Incorrect input given.'
+
+        self.motionProxy.setStiffnesses(
+            ['LShoulderPitch', 'LShoulderRoll', 'LElbowYaw', 'LElbowRoll', 'LWristYaw', 'LHand',
+                'RShoulderPitch', 'RShoulderRoll', 'RElbowYaw', 'RElbowRoll', 'RWristYaw', 'RHand'], 1.0)
+
         inputMat = DataLeft[0][0, :]
         DataLeft = DTW(DataLeft)
         DataRight = DTW(DataRight)
-        leftGMR = GMM_GMR(5)
-        rightGMR = GMM_GMR(5)
+        leftGMR = GMM_GMR(self.numberOfStates)
+        rightGMR = GMM_GMR(self.numberOfStates)
         leftGMR.fit(DataLeft)
         rightGMR.fit(DataRight)
         leftGMR.predict(inputMat)
         rightGMR.predict(inputMat)
-        return leftGMR.getPredictedMatrix(), rightGMR.getPredictedMatrix()
+
+        self.trainedTasks.append((leftGMR.getPredictedMatrix(), rightGMR.getPredictedMatrix()))
+
         # fig = plt.figure()
         # ax1 = fig.add_subplot(121)
         # plt.title('Left Hand x-axis trajectory')
