@@ -5,11 +5,15 @@ import thread
 from DTW import DTW
 from GMM_GMR import GMM_GMR
 from matplotlib import pyplot as plt
+import pickle
+import datetime
+
 class NAO:
 
     def __init__(self, robotIP, robotPort):
         self.motionProxy = ALProxy("ALMotion", robotIP, robotPort)
-        self.numberOfStates = 5
+        self.sayProxy = ALProxy("ALTextToSpeech", robotIP, robotPort)
+        self.numberOfStates = 15
         self.trainedTasks = []
         self.stopperBool = True
 
@@ -43,6 +47,18 @@ class NAO:
         time.sleep(angle / 15)
         self.motionProxy.setWalkTargetVelocity(0, 0, 0, 0)
 
+    def sayHello(self):
+        self.sayProxy.say("Hello!")
+
+    def sayBye(self):
+        self.sayProxy.say("Good bye!")
+
+    def sayHRU(self):
+        self.sayProxy.say("How are you?")
+
+    def sayFine(self):
+        self.sayProxy.say("I am fine, thanks!")
+
     def performTask(self, index):
 
         effector = ['LArm', 'RArm']
@@ -51,15 +67,12 @@ class NAO:
         isAbsolute = True
         currentTask = self.trainedTasks[index]
         pathList = [currentTask[0][1:, :].T.tolist(), currentTask[1][1:, :].T.tolist()]
-        # y = np.delete(rrrr.Data, 0, axis=0)
-        # y = np.transpose(y)
-        # y = y.tolist()
         timeList = [currentTask[0][0, :].tolist(), currentTask[1][0, :].tolist()]
-        print timeList
-        # t = np.delete(rrrr.Data, np.s_[1:7], axis=0)
-        # t = np.dot(t, 3)
-        # t = t.tolist()
         self.motionProxy.positionInterpolations(effector, space, pathList, axisMask, timeList, isAbsolute)
+        plt.show()
+    #
+    # def traingTask(self, pickle):
+    #     self.trainedTasks.append((leftGMR.getPredictedMatrix(), rightGMR.getPredictedMatrix()))
 
     def trainTask(self):
 
@@ -67,7 +80,7 @@ class NAO:
             raw_input('Press Enter to stop demonstration.')
             self.stopperBool = False
 
-        def recordData():
+        def recordData(self):
             dataLeft = np.zeros((6,0))
             dataRight = np.zeros((6,0))
             timeArray = np.array([[0.1]])
@@ -80,7 +93,7 @@ class NAO:
                 resultRight = np.reshape(resultRight, (6,1))
                 dataLeft = np.hstack((dataLeft, resultLeft))
                 dataRight = np.hstack((dataRight, resultRight))
-                elapsed = time.time() - startTime
+                elapsed = time.time() - startTime + 0.005
                 timeArray = np.hstack((timeArray, np.array([[timeArray[0, -1] + elapsed]])))
             timeArray = timeArray[:,:(timeArray.size - 1)]
             self.stopperBool = True
@@ -95,7 +108,7 @@ class NAO:
         while True:
             startDemo = raw_input('Do you want to start new demonstration? (Y/N): ')
             if startDemo == 'Y':
-                left, right = recordData()
+                left, right = recordData(self)
                 DataLeft.append(left)
                 DataRight.append(right)
             elif startDemo == 'N':
@@ -118,20 +131,59 @@ class NAO:
         leftGMR.predict(inputMat)
         rightGMR.predict(inputMat)
 
-        self.trainedTasks.append((leftGMR.getPredictedMatrix(), rightGMR.getPredictedMatrix()))
-
         # fig = plt.figure()
-        # ax1 = fig.add_subplot(121)
+        # ax1 = fig.add_subplot(231)
         # plt.title('Left Hand x-axis trajectory')
-        # leftGMR.plot(ax=ax1, plotType="Clusters")
+        # leftGMR.plot(ax=ax1, plotType="Data")
         # leftGMR.plot(ax=ax1, plotType="Regression")
-        # ax2 = fig.add_subplot(122)
+        # ax2 = fig.add_subplot(232)
+        # plt.title('Left Hand y-axis trajectory')
+        # leftGMR.plot(yAxis = 2, ax=ax2, plotType="Data")
+        # leftGMR.plot(yAxis = 2, ax=ax2, plotType="Regression")
+        # ax3 = fig.add_subplot(233)
+        # plt.title('Left Hand z-axis trajectory')
+        # leftGMR.plot(yAxis = 3, ax=ax3, plotType="Data")
+        # leftGMR.plot(yAxis = 3, ax=ax3, plotType="Regression")
+        # ax4 = fig.add_subplot(234)
+        # plt.title('Left Hand x-axis trajectory')
+        # leftGMR.plot(yAxis=4, ax=ax4, plotType="Data")
+        # leftGMR.plot(yAxis=4, ax=ax4, plotType="Regression")
+        # ax5 = fig.add_subplot(235)
+        # plt.title('Left Hand y-axis orientation')
+        # leftGMR.plot(yAxis=5, ax=ax5, plotType="Data")
+        # leftGMR.plot(yAxis=5, ax=ax5, plotType="Regression")
+        # ax6 = fig.add_subplot(236)
+        # plt.title('Left Hand z-axis trajectory')
+        # leftGMR.plot(yAxis=6, ax=ax6, plotType="Data")
+        # leftGMR.plot(yAxis=6, ax=ax6, plotType="Regression")
+        #
+        # fig = plt.figure()
+        # ax1 = fig.add_subplot(231)
         # plt.title('Right Hand x-axis trajectory')
-        # rightGMR.plot(ax=ax2, plotType="Clusters")
-        # rightGMR.plot(ax=ax2, plotType="Regression")
-        # plt.show()
-
-if __name__ == '__main__':
-    NAO = NAO('192.168.10.101', 9559)
-    NAO.trainTask()
-    NAO.performTask(0)
+        # rightGMR.plot(ax=ax1, plotType="Data")
+        # rightGMR.plot(ax=ax1, plotType="Regression")
+        # ax2 = fig.add_subplot(232)
+        # plt.title('Right Hand y-axis trajectory')
+        # rightGMR.plot(yAxis=2, ax=ax2, plotType="Data")
+        # rightGMR.plot(yAxis=2, ax=ax2, plotType="Regression")
+        # ax3 = fig.add_subplot(233)
+        # plt.title('Right Hand z-axis trajectory')
+        # rightGMR.plot(yAxis=3, ax=ax3, plotType="Data")
+        # rightGMR.plot(yAxis=3, ax=ax3, plotType="Regression")
+        # ax4 = fig.add_subplot(234)
+        # plt.title('Right Hand x-axis trajectory')
+        # rightGMR.plot(yAxis=4, ax=ax4, plotType="Data")
+        # rightGMR.plot(yAxis=4, ax=ax4, plotType="Regression")
+        # ax5 = fig.add_subplot(235)
+        # plt.title('Right Hand y-axis orientation')
+        # rightGMR.plot(yAxis=5, ax=ax5, plotType="Data")
+        # rightGMR.plot(yAxis=5, ax=ax5, plotType="Regression")
+        # ax6 = fig.add_subplot(236)
+        # plt.title('Right Hand z-axis trajectory')
+        # rightGMR.plot(yAxis=6, ax=ax6, plotType="Data")
+        # rightGMR.plot(yAxis=6, ax=ax6, plotType="Regression")
+        # pickle.dump((leftGMR.getPredictedMatrix(), rightGMR.getPredictedMatrix()), open(datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S") + '.p', 'wb'))
+        # data = (1, 2, 3, [[1, 2, 3], [4, 5, 6]], ['a', 'b', 'c'])
+        # with open(datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S") + '.pickle', 'wb') as f:
+        #     pickle.dump((leftGMR.getPredictedMatrix(), rightGMR.getPredictedMatrix()), f)
+        self.trainedTasks.append((leftGMR.getPredictedMatrix(), rightGMR.getPredictedMatrix()))

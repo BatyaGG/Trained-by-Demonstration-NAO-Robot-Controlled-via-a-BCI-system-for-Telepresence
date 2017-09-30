@@ -2,10 +2,15 @@ from time import sleep
 import bufhelp
 import FieldTrip
 from NAO import NAO
+import warnings
+warnings.filterwarnings('ignore')
+
 # Configuring NAO robot IP and its port and initializing NAO object
 robotIP = "192.168.10.101"
 robotPort = 9559
 Nao = NAO(robotIP, robotPort)
+# for i in range(3):
+#     Nao.trainTask()
 
 # Buffer interfacing functions
 def sendEvent(event_type, event_value=1, offset=0):
@@ -41,15 +46,34 @@ def processBufferEvents():
     events = bufhelp.buffer_newevents()
     for evt in events:
         print(str(evt.sample) + ": " + str(evt))
-        if evt.type == 'keyboard':
-            if evt.value == 'q':
-                Nao.moveForward(150)
-            elif evt.value == 'w':
+        # stimulus.prediction
+        if evt.type == 'stimulus.prediction':
+            if evt.value == '@FWRD':
+                Nao.moveForward(50)
+            elif evt.value == '@TRNL':
                 Nao.turnLeft(90)
-            elif evt.value == 'e':
+            elif evt.value == '@TRHT':
                 Nao.turnRight(90)
-            elif evt.value == '0':
-                print 'task'
+            elif evt.value == '@LEFT':
+                Nao.moveLeft(90)
+            elif evt.value == '@RGHT':
+                Nao.moveRight(90)
+            elif evt.value == '@BACK':
+                Nao.moveBackward(50)
+            elif evt.value == '#HELLO':
+                Nao.sayHello()
+            elif evt.value == '#GBYE':
+                Nao.sayBye()
+            elif evt.value == '#HWRU':
+                Nao.sayHRU()
+            elif evt.value == '#FINE':
+                Nao.sayFine()
+            elif evt.value == '*WAVE':
+                Nao.performTask(0)
+            elif evt.value == '*CLAP':
+                Nao.performTask(1)
+            elif evt.value == '*SHAKE':
+                Nao.performTask(2)
 
 while True:
     processBufferEvents()

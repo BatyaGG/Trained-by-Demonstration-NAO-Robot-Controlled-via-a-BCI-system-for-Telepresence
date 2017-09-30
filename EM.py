@@ -8,14 +8,14 @@ def EM(Data, Priors0, Mu0, Sigma0):
     nbVar, nbData = np.shape(Data)
     nbStates = np.size(Priors0)
     loglik_old = -realmax
-    nbStep = 0
+    nbMaxIterations = 50
     Mu = Mu0
     Sigma = Sigma0
     Priors = Priors0
 
     Pix = np.ndarray(shape = (nbStates, nbData))
     Pxi = np.ndarray(shape = (nbData, nbStates))
-    while 1:
+    for i in range (nbMaxIterations):
         for i in range (0,nbStates):
             Pxi[:,i] = gaussPDF(Data,Mu[:,i],Sigma[:,:,i])
 
@@ -48,7 +48,4 @@ def EM(Data, Priors0, Mu0, Sigma0):
         if np.absolute((loglik/loglik_old)-1)<loglik_threshold:
             break
         loglik_old = loglik
-        nbStep = nbStep+1
-        if (nbStep > 50):
-            break
     return(Priors,Mu,Sigma, Pix)
