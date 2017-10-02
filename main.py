@@ -9,8 +9,8 @@ warnings.filterwarnings('ignore')
 robotIP = "192.168.10.101"
 robotPort = 9559
 Nao = NAO(robotIP, robotPort)
-# for i in range(3):
-#     Nao.trainTask()
+for i in range(1):
+    Nao.trainTask()
 
 # Buffer interfacing functions
 def sendEvent(event_type, event_value=1, offset=0):
@@ -47,7 +47,7 @@ def processBufferEvents():
     for evt in events:
         print(str(evt.sample) + ": " + str(evt))
         # stimulus.prediction
-        if evt.type == 'stimulus.prediction':
+        if evt.type == 'keyboard':
             if evt.value == '@FWRD':
                 Nao.moveForward(50)
             elif evt.value == '@TRNL':
@@ -68,7 +68,7 @@ def processBufferEvents():
                 Nao.sayHRU()
             elif evt.value == '#FINE':
                 Nao.sayFine()
-            elif evt.value == '*WAVE':
+            elif evt.value == '0':
                 Nao.performTask(0)
             elif evt.value == '*CLAP':
                 Nao.performTask(1)
