@@ -5,8 +5,6 @@ import thread
 from DTW import DTW
 from GMM_GMR import GMM_GMR
 from matplotlib import pyplot as plt
-import pickle
-import datetime
 
 class NAO:
 
@@ -69,10 +67,6 @@ class NAO:
         pathList = [currentTask[0][1:, :].T.tolist(), currentTask[1][1:, :].T.tolist()]
         timeList = [currentTask[0][0, :].tolist(), currentTask[1][0, :].tolist()]
         self.motionProxy.positionInterpolations(effector, space, pathList, axisMask, timeList, isAbsolute)
-
-    #
-    # def traingTask(self, pickle):
-    #     self.trainedTasks.append((leftGMR.getPredictedMatrix(), rightGMR.getPredictedMatrix()))
 
     def trainTask(self):
 

@@ -11,4 +11,3 @@ def DTW(datalist):
             ynew = datalist[i][j, :][dict(path).values()]
             data[j, i * datalist[0].shape[1] : (i + 1) * datalist[0].shape[1]] = ynew
     return data
-
