@@ -25,7 +25,7 @@ Programming by demonstration (PbD) is a robotics field developing methods for te
 # Dynamic Time Warping
 
 <p align="center">
-  <img width="75%" height="75%" src="https://raw.githubusercontent.com/BatyaGG/Trained-by-Demonstration-NAO-Robot-Controlled-via-a-BCI-system-for-Telepresence/master/figure_trajectory.png">
+  <img width="90%" height="90%" src="https://raw.githubusercontent.com/BatyaGG/Trained-by-Demonstration-NAO-Robot-Controlled-via-a-BCI-system-for-Telepresence/master/figure_trajectory.png">
 </p>
 
 All demonstrations are aligned to first demonstration by similarities in trajectories using dynamic time warping algorithm.
