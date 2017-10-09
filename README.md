@@ -16,6 +16,8 @@ In order to properly use it, there should be a FieldTrip BCI buffer which handle
 
 However, this script can be useful for various reasons. I implemented NAO class, which have cartesian control methods, but the most important is trainTask and preformTask methods which uses my [GMM/GMR implementation](https://github.com/BatyaGG/Gaussian-Mixture-Models) to learn and reproduce mechanical motions of both arms simultaneously.
 
+If you have working FieldTrip buffer and implemented BCI interface on PC, you can use my script by initial purpose. Just run main.py file and prompt of task teaching will appear. After 3 tasks will be learned by the robot, event listener will start its process continuously. Train your BCI model and try to control NAO robot ;)
+
 # NAO humanoid robot
 
 <p align="center">
