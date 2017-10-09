@@ -1,6 +1,6 @@
 # Trained by Demonstration NAO Robot Controlled via a BCI system for Telepresence
 
-Nao robot learning, control and BCI event listener script. Should be run together with Buffer BCI (FieldTrip). Events from the Buffer will be catched by Python script and control signal will be sent to the robot. Robot training stage is at the beginning of script. User can perform as much demos as wants, however learning time will be increased. In general 3 demonstrations are sufficient for smooth reproduction. 
+Nao robot learning, control and BCI event listener script. Should be run together with Buffer BCI (FieldTrip). Events from the Buffer will be catched by Python script and control signal will be sent to the robot. Robot training stage is at the beginning of script. User can perform as much demos as wants, however learning time will be increased. In general 3 demonstrations are sufficient for smooth reproduction. Also, 15 gaussian states is used to fit gaussian model, this number can be changed in NAO class contructor.
 
 # NAO humanoid robot
 
