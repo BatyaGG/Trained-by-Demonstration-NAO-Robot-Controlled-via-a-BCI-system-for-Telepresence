@@ -2,13 +2,9 @@
 
 # NAO humanoid robot
 
-<div style="text-align:center;">
-  <div style = "display:inline-block;">
-    govnyuk
-  </div>
-  <div style = "display:inline-block;">
-    myau
-  </div>
+<div>
+  <div style="float: left; width: 30px">1</div>
+  <div>2</div>
 </div>
 
 
