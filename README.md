@@ -2,7 +2,7 @@
 
 # NAO humanoid robot
 
-<p align="right">
+<p align="center">
   <img width="150" height="150" src="https://raw.githubusercontent.com/BatyaGG/Trained-by-Demonstration-NAO-Robot-Controlled-via-a-BCI-system-for-Telepresence/master/NAO.jpg">
 </p>
 
