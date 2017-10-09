@@ -48,4 +48,4 @@ All demonstrations are aligned to first demonstration by similarities in traject
 
 # Contribution
 
-I appreciate any contribution attempts to contribute to this work. If you have any ideas contact me to: b.saduanov@gmail.com
+I appreciate any attempts to contribute to this work. If you have any ideas contact me to: b.saduanov@gmail.com
