@@ -21,3 +21,12 @@ Overall system flow is managed by Fieldtrip Buffer which regulates BCI and NAO r
 # Programming by demonstration
 
 Programming by demonstration (PbD) is a robotics field developing methods for teaching robots by showing to them how to perform a particular task. Such methodoly of programming is user-friendly and do not require any programming skills or knowledge of programming languages. This is very useful mechanism of teaching robots which decreases their costs, since factories will be able to produce only general robots, which can be programmed in any way a buyer wants. Current PbD approach is based on Gaussian Mixture Models (GMM) soft clustering algorithm which considers data as finite gaussian distributions with unknown parameters. Expectation-Maximization (EM) algorithm is used to find gaussian states parameters which is iterative algorithm which converges to true gaussian parameters and stopped by log-likelihood threshold or iteration number limit. To initialize gaussian parameters k-means clustering algorithm is used. After GMM is fitted, the model is used to fit Gaussian Mixture Regression (GMR) to retrieve robot arm trajectories by time input. GMM/GMR functions are from my [Gaussian-Mixture-Models project](https://github.com/BatyaGG/Gaussian-Mixture-Models), please check it out.
+
+# Dynamic Time Warping
+
+<p align="center">
+  <img width="90%" height="90%" src="https://raw.githubusercontent.com/BatyaGG/Trained-by-Demonstration-NAO-Robot-Controlled-via-a-BCI-system-for-Telepresence/master/figure_trajectory.png">
+</p>
+
+All demonstrations are aligned to first demonstration by similarities in trajectories using Dynamic Time Warping (DTW) algorithm. This is done to sustain the shape of trajectory, since different demonstration speeds will lead to cluster mess. Above figure demonstration trajectories are already fitted by DTW algorithm. It can be seen from ideal demonstration trajectories that run over each other in x-axis and z-axis trajectory and y-axis orientation subplots. Y-axis and x-axis trajectories and z-axis orientations had different values each demonstration, but still matched as much as possible. Purple puddles shows variance of trajectories, blue line shows regression line and light blue lines are demonstration trajectories.
+
