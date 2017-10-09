@@ -10,6 +10,12 @@ Following packages have to be installed: numpy <1.12.1>, matplotlib <2.0.0>, fas
 
 Other version of packages are not tested, but welcome. Report me if have any problems to: b.saduanov@gmail.com
 
+# Usage
+
+In order to properly use it, there should be a FieldTrip BCI buffer which handles events in parallel. So, you need BCI machine with FieldTrip buffer installed there. Also, you will need BCI control interface. This script is tested with P300 BCI interface implemented in MATLAB running in parallel with Python script and FieldTrip Buffer.
+
+However, this script can be useful for various reasons. I implemented NAO class, which have cartesian control methods, but the most important is trainTask and preformTask methods which uses my [GMM/GMR implementation](https://github.com/BatyaGG/Gaussian-Mixture-Models) to learn and reproduce mechanical motions of both arms simultaneously.
+
 # NAO humanoid robot
 
 <p align="center">
