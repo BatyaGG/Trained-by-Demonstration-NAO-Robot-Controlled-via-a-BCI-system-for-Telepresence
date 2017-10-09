@@ -8,6 +8,8 @@ Just clone or download this project.
 
 Following packages have to be installed: numpy <1.12.1>, matplotlib <2.0.0>, fastdtw <0.3.0>, scipy <0.16.1>. Also, NAO robot control framework 'naoqi' should be installed. 
 
+Other version of packages are not tested, but welcome. Report me if have any problems to: b.saduanov@gmail.com
+
 # NAO humanoid robot
 
 <p align="center">
