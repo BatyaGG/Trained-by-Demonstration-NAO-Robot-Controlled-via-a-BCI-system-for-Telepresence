@@ -2,7 +2,7 @@
 
 # NAO humanoid robot
 
-<div>
+<div style="text-align:center;">
   <div style = "display:inline-block;">
     govnyuk
   </div>
