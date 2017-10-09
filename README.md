@@ -1,6 +1,22 @@
 # Trained by Demonstration NAO Robot Controlled via a BCI system for Telepresence
 
-Nao robot learning, control and BCI event listener script. Should be run together with Buffer BCI (FieldTrip). Events from the Buffer will be catched by Python script and control signal will be sent to the robot. Robot training stage is at the beginning of script. User can perform as much demos as wants, however learning time will be increased. In general 3 demonstrations are sufficient for smooth reproduction. 
+Nao robot learning, control and BCI event listener script. Should be run together with Buffer BCI (FieldTrip). Events from the Buffer will be catched by Python script and control signal will be sent to the robot. Robot training stage is at the beginning of script. User can perform as much demos as wants, however learning time will be increased. In general 3 demonstrations are sufficient for smooth reproduction. Also, 15 gaussian states is used to fit gaussian model, this number can be changed in NAO class contructor.
+
+# Installation
+
+Just clone or download this project.
+
+Following packages have to be installed: numpy <1.12.1>, matplotlib <2.0.0>, fastdtw <0.3.0>, scipy <0.16.1>. Also, NAO robot control framework 'naoqi' should be installed. 
+
+Other version of packages are not tested, but welcome. Report me if have any problems to: b.saduanov@gmail.com
+
+# Usage
+
+In order to properly use it, there should be a FieldTrip BCI buffer which handles events in parallel. So, you need BCI machine with FieldTrip buffer installed there. Also, you will need BCI control interface. This script is tested with P300 BCI interface implemented in MATLAB running in parallel with Python script and FieldTrip Buffer.
+
+However, this script can be useful for various reasons. I implemented NAO class, which have cartesian control methods, but the most important is trainTask and preformTask methods which uses my [GMM/GMR implementation](https://github.com/BatyaGG/Gaussian-Mixture-Models) to learn and reproduce mechanical motions of both arms simultaneously.
+
+If you have working FieldTrip buffer and implemented BCI interface on PC, you can use my script by initial purpose. Just run main.py file and prompt of task teaching will appear. After 3 tasks will be learned by the robot, event listener will start its process continuously. Train your BCI model and try to control NAO robot ;)
 
 # NAO humanoid robot
 
@@ -30,3 +46,6 @@ Programming by demonstration (PbD) is a robotics field developing methods for te
 
 All demonstrations are aligned to first demonstration by similarities in trajectories using Dynamic Time Warping (DTW) algorithm. This is done to sustain the shape of trajectory, since different demonstration speeds will lead to cluster mess. Above figure demonstration trajectories are already fitted by DTW algorithm. It can be seen from ideal demonstration trajectories that run over each other in x-axis and z-axis trajectory and y-axis orientation subplots. Y-axis and x-axis trajectories and z-axis orientations had different values each demonstration, but still matched as much as possible. Purple puddles shows variance of trajectories, blue line shows regression line and light blue lines are demonstration trajectories.
 
+# Contribution
+
+I appreciate any attempts to contribute to this work. If you have any ideas contact me to: b.saduanov@gmail.com
