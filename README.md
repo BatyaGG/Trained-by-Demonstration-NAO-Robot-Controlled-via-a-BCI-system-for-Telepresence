@@ -2,8 +2,9 @@
 
 # NAO humanoid robot
 
+<p align="center">
 ![alt text](https://raw.githubusercontent.com/BatyaGG/Trained-by-Demonstration-NAO-Robot-Controlled-via-a-BCI-system-for-Telepresence/master/NAO.jpg)
-
+</p>
 NAO is a humanoid robot developed by Aldebaran Robotics french company. It is 59cm tall robot which is designed for different aims, however mostly used in academic side. Having 25 degrees of freedom NAO can perform various, complex body motions. The robot is one of common robots used in telepresence topic since several advantages of the robot. The robot is equipped with numerous sensors in its head, body, feet and hands allowing robot to perceive its environment and perform tasks respectively. Also, NAO have several 4 directional microphones and loudspeakers to interact with humans in effectively essential manner. NAO sees world using 2 high resolution cameras and able to recognize various shapes and objects and connects to Internet through Ethernet or WiFi. All these advantages improve the effect of operator presence and alleviate robot control process.
 
 # System Architecture
