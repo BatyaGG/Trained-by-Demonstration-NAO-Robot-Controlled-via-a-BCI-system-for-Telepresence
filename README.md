@@ -46,3 +46,6 @@ Programming by demonstration (PbD) is a robotics field developing methods for te
 
 All demonstrations are aligned to first demonstration by similarities in trajectories using Dynamic Time Warping (DTW) algorithm. This is done to sustain the shape of trajectory, since different demonstration speeds will lead to cluster mess. Above figure demonstration trajectories are already fitted by DTW algorithm. It can be seen from ideal demonstration trajectories that run over each other in x-axis and z-axis trajectory and y-axis orientation subplots. Y-axis and x-axis trajectories and z-axis orientations had different values each demonstration, but still matched as much as possible. Purple puddles shows variance of trajectories, blue line shows regression line and light blue lines are demonstration trajectories.
 
+# Contribution
+
+I appreciate any contribution attempts to contribute to this work. If you have any ideas contact me to: b.saduanov@gmail.com
