@@ -5,6 +5,7 @@ Nao robot learning, control and BCI event listener script. Should be run togethe
 # Installation
 
 Just clone or download this project.
+
 Following packages have to be installed: numpy <1.12.1>, matplotlib <2.0.0>, fastdtw <0.3.0>, scipy <0.16.1>. Also, NAO robot control framework 'naoqi' should be installed. 
 
 # NAO humanoid robot
