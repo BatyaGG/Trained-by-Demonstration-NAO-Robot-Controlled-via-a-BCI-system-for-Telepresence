@@ -6,6 +6,10 @@
 
 Nao robot learning, control and BCI event listener script. Should be run together with Buffer BCI (FieldTrip). Events from the Buffer will be catched by Python script and control signal will be sent to the robot. Robot training stage is at the beginning of script. User can perform as much demos as wants, however learning time will be increased. In general 3 demonstrations are sufficient for smooth reproduction. Also, 15 gaussian states is used to fit gaussian model, this number can be changed in NAO class contructor.
 
+My associated with this project paper:
+
+**Saduanov, B.**, Alizadeh, T., An, J., & Abibullaev, B. (2018, January). Trained by demonstration humanoid robot controlled via a BCI system for telepresence. In Brain-Computer Interface (BCI), 2018 6th International Conference on (pp. 1-4). IEEE.
+
 # Installation
 
 Just clone or download this project.
