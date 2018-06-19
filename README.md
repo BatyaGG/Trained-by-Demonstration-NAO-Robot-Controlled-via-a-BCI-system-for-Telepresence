@@ -4,9 +4,16 @@
   <img width="75%" height="75%" src="https://raw.githubusercontent.com/BatyaGG/Trained-by-Demonstration-NAO-Robot-Controlled-via-a-BCI-system-for-Telepresence/master/image.jpg">
 </p>
 
-Nao robot learning, control and BCI event listener script. Should be run together with Buffer BCI (FieldTrip). Events from the Buffer will be catched by Python script and control signal will be sent to the robot. Robot training stage is at the beginning of script. User can perform as much demos as wants, however learning time will be increased. In general 3 demonstrations are sufficient for smooth reproduction. Also, 15 gaussian states is used to fit gaussian model, this number can be changed in NAO class contructor.
+Nao robot learning, control and BCI event listener script. Should be run together with Buffer BCI (FieldTrip). Events from the Buffer will be catched by Python script and control signal will be sent to the robot. Robot training stage is at the beginning of script. User can perform as much demos as wants, however learning time will be increased. In general 3 demonstrations are sufficient for smooth reproduction. Also, 15 gaussian states is used to fit gaussian model, this number can be changed in NAO class contructor. Please take look to the demo video (not detailed).
 
-My associated with this project paper:
+<p align="center"> 
+<a href="https://www.youtube.com/watch?v=ewWWHJdGL1E" target="_blank"><img src="https://github.com/BatyaGG/Trained-by-Demonstration-NAO-Robot-Controlled-via-a-BCI-system-for-Telepresence/blob/master/youtube.png" 
+width="70%"" border="10" /></a> 
+<br> 
+<i>The demo video</i> 
+</p>
+
+Appropriate paper:
 
 **Saduanov, B.**, Alizadeh, T., An, J., & Abibullaev, B. (2018, January). Trained by demonstration humanoid robot controlled via a BCI system for telepresence. In Brain-Computer Interface (BCI), 2018 6th International Conference on (pp. 1-4). IEEE.
 
